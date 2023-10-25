@@ -4,6 +4,6 @@
 /**
  * 
  */
-module corejava {
+module JavaProject {
 	requires java.sql;
 }
