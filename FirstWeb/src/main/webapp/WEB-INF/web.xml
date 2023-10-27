@@ -2,10 +2,6 @@
 <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app id="WebApp_ID">
 	<display-name>FirstWeb</display-name>
-
-	<listener>
-		<listener-class>firstWeb.CounterLoaderListener</listener-class>
-	</listener>
 	<servlet>
 		<servlet-name>HelloServlet</servlet-name>
 		<servlet-class>firstWeb.HelloServlet</servlet-class>

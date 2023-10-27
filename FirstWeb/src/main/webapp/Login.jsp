@@ -3,23 +3,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Login Page</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-<div class="w-1/2 mx-auto mt-6">
-	<form action="login" method="post">
-    <div class="mb-4">
-      <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
-      <input type="text" id="name" name="name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" placeholder="Enter your name">
+    <div class="login-container">
+    	<div class="login-header">
+        <h2>Login</h2>
+        </div>
+		<form action="login" method="post">
+            <div class="input-container">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" required>
+            </div>
+            
+            <div class="input-container">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            
+            <input type="submit" value="Login">
+        </form>
     </div>
-    <div class="mb-4">
-      <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
-      <input type="password" id="password" name="password" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" placeholder="Enter your password">
-    </div>
-    <button type="submit" name="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700" value="Login">Submit</button>
-  </form>
-</div>
 </body>
 </html>
