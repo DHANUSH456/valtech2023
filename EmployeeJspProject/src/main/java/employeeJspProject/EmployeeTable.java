@@ -204,7 +204,7 @@ public class EmployeeTable implements EmployeeDAO {
 
 	private Connection getConnection() throws SQLException {
 
-		return DriverManager.getConnection("jdbc:mysql://localhost:3306/valtech2023?useSSL = false", "root", "root");
+		return DriverManager.getConnection("jdbc:mysql://localhost:3306/valtech2023?useSSL=false&allowPublicKeyRetrieval=true", "root", "root");
 
 	}
 
