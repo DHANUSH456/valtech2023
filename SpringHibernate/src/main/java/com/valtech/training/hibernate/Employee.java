@@ -63,6 +63,10 @@ public class Employee {
 		this.active = active;
 	}
 	
+
+	public Employee() {
+	}
+	
 	public Employee(int id, String name, Date dob, int salary, char gender, boolean active) {
 		super();
 		this.id = id;
@@ -80,6 +84,12 @@ public class Employee {
 		this.salary = salary;
 		this.gender = gender;
 		this.active = active;
+	}
+	
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", dob=" + dob + ", salary=" + salary + ", gender=" + gender
+				+ ", active=" + active + "]";
 	}
 	
 

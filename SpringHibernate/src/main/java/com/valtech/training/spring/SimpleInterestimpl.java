@@ -25,7 +25,7 @@ public class SimpleInterestimpl implements  SimpleInterest{
 	
 	public static void main(String[] args) {
 		
-		Arithmetic arithmetic = new Arithmeticimpl();
+		Arithmetic arithmetic = new ArithmeticImpl();
 		SimpleInterest si = new SimpleInterestimpl(arithmetic);
 		System.out.println(si.computeInterest(200,3,4));
 		

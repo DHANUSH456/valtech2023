@@ -3,6 +3,11 @@ package com.valtech.training.day4;
 public class Employee {
 
 	private int id;
+	private int seniority;
+	private int experience;
+	private String name;
+	private int age;
+	private int salary;
 
 	public int getId() {
 
@@ -76,11 +81,7 @@ public class Employee {
 
 	}
 
-	private int seniority;
-	private int experience;
-	private String name;
-	private int age;
-	private int salary;
+	
 	
 	public Employee() {
 
