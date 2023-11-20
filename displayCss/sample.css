@@ -1,0 +1,26 @@
+/* sample.css */
+.body {
+    background-color: #336699;
+    color: #FFFFFF;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.p {
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.link {
+    color: #FF0000;
+    text-decoration: none;
+}

@@ -7,9 +7,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionMessage.ItemsBuilder;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.valtech.training.firstspringboot.components.Employee;
 import com.valtech.training.firstspringboot.components.EmployeeDAO;
 import com.valtech.training.firstspringboot.components.HelloWorld;
+import com.valtech.training.firstspringboot.components.Items;
+import com.valtech.training.firstspringboot.components.ItemsDAO;
 //import com.valtech.training.firstspringboot.components.SimpleInterestimpl;
 import com.valtech.training.firstspringboot.entity.Order;
 import com.valtech.training.firstspringboot.service.EmployeeService;
@@ -21,8 +26,8 @@ class FirstSpringBootApplicationTests {
 	@Autowired
 	private HelloWorld helloWorld;
 	
-//	@Autowired
-//	private EmployeeDAO employeeDAO;
+	@Autowired
+	private EmployeeDAO employeeDAO;
 	
 	@Autowired
 	private OrderService orderService;
@@ -32,6 +37,9 @@ class FirstSpringBootApplicationTests {
 	
 	@Autowired
 	private EmployeeService employeeService;
+	
+	@Autowired
+	private ItemsDAO itemsDAO;
 	
 //	@Test
 //	void testSI() {
@@ -47,13 +55,15 @@ class FirstSpringBootApplicationTests {
 		assertEquals("Hello Spring Boot", helloWorld.hello());
 	}
 	
-//	@Test
-//	void testEmployeeDAO() {
-//		assertEquals(5, employeeDAO.count());
-//		System.out.println(employeeDAO.count());
-//		assertEquals(5, employeeDAO.getAllEmployees().size());
-//		System.out.println(employeeDAO.getAllEmployees());
-//	}
+	@Test
+	void testEmployeeDAO() {
+		Employee employee = new Employee("pranav",22,1,1,45000);
+		employeeDAO.createEmployee(employee);
+		assertEquals(6, employeeDAO.count());
+		System.out.println(employeeDAO.count());
+		assertEquals(6, employeeDAO.getAllEmployees().size());
+		System.out.println(employeeDAO.getAllEmployees());
+	}
 
 	@Test
 	void testOrders() {
@@ -65,6 +75,15 @@ class FirstSpringBootApplicationTests {
 	void testEmployee() {
 		
 		employeeService.deleteEmployee(3);		
+	}
+	
+	@Test
+	void testItemsDAO(){
+		
+		Items items = new Items("pen",10);
+		itemsDAO.createItems(items);
+		assertEquals(4, itemsDAO.count());
+		System.out.println(itemsDAO.count());
 	}
 }
 

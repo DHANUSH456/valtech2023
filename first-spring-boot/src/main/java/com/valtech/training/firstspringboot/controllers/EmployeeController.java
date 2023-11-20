@@ -29,26 +29,14 @@ public class EmployeeController {
 	private DepartmentModels departmentModels;
 
 	private int currentId;
+	
+	private int presentId;
 
 	@GetMapping("/new")
 	public String newEmployee(Model model) {
 
 		model.addAttribute("employees", new EmployeeModels());
 		return "employees/new";
-	}
-
-	@GetMapping("/list")
-	public String listEmployee(Model model) {
-
-		departments = employeeService.getAllDepartments();
-		if (!departments.isEmpty()) {
-			Department dept = departments.get(employeeService.getFirstId() - 1);
-			departmentModels = new DepartmentModels(dept);
-			model.addAttribute("departments", departmentModels);
-		}
-		model.addAttribute("employees", employeeService.getAllEmployees().stream().map(emp -> new EmployeeModels(emp))
-				.collect(Collectors.toList()));
-		return "employees/list";
 	}
 
 	@GetMapping("/edit")
@@ -97,59 +85,63 @@ public class EmployeeController {
 				.collect(Collectors.toList()));
 		return "employees/list";
 	}
+	
+	@GetMapping("/list")
+	public String listEmployee(Model model) {
+
+		departments = employeeService.getAllDepartments();
+		if (!departments.isEmpty()) {
+			Department dept=employeeService.getDepartment(employeeService.getFirstId());
+			departmentModels = new DepartmentModels(dept);
+			model.addAttribute("departments", departmentModels);
+		}
+		model.addAttribute("employees", employeeService.getAllEmployees().stream().map(emp -> new EmployeeModels(emp))
+				.collect(Collectors.toList()));
+		return "employees/list";
+	}
 
 	@PostMapping(path = "/list", params = "submit")
 	public String listEmployee(@RequestParam("submit") String submit, Model model) {
 
-		currentId = departmentModels != null ? departmentModels.getId() : null;
+		currentId = departmentModels.getId();
 
 		if (submit.equals("Last")) {
-			Department dept = departments.get(employeeService.getLastId() - 1);
+			Department  dept=employeeService.getDepartment(employeeService.getLastId());
 			departmentModels = new DepartmentModels(dept);
-			model.addAttribute("departments", departmentModels);
-			model.addAttribute("employees", employeeService.getAllEmployeesByDepartmentId(departmentModels.getId())
-					.stream().map(emp -> new EmployeeModels(emp)).collect(Collectors.toList()));
+			presentId = departmentModels.getId();
 
 		} else if (submit.equals("Previous")) {
 			if (currentId != employeeService.getFirstId()) {
-				Department dept = departments.get(employeeService.getPreviousId(currentId) - 1);
+				Department dept=employeeService.getDepartment(employeeService.getPreviousId(currentId));
 				departmentModels = new DepartmentModels(dept);
-				model.addAttribute("departments", departmentModels);
-				model.addAttribute("employees", employeeService.getAllEmployeesByDepartmentId(departmentModels.getId())
-						.stream().map(emp -> new EmployeeModels(emp)).collect(Collectors.toList()));
+				presentId = departmentModels.getId();
 
-			} else {
-				Department dept = departments.get(employeeService.getFirstId() - 1);
+			} 
+				else {
+				Department  dept=employeeService.getDepartment(employeeService.getLastId());
 				departmentModels = new DepartmentModels(dept);
-				model.addAttribute("departments", departmentModels);
-				model.addAttribute("employees", employeeService.getAllEmployeesByDepartmentId(departmentModels.getId())
-						.stream().map(emp -> new EmployeeModels(emp)).collect(Collectors.toList()));
+				presentId = departmentModels.getId();
 			}
 		} else if (submit.equals("Next")) {
 			if (currentId != employeeService.getLastId()) {
-				Department dept = departments.get(employeeService.getNextId(currentId) - 1);
+				Department dept=employeeService.getDepartment(employeeService.getNextId(currentId));
 				departmentModels = new DepartmentModels(dept);
-				model.addAttribute("departments", departmentModels);
-				model.addAttribute("employees", employeeService.getAllEmployeesByDepartmentId(departmentModels.getId())
-						.stream().map(emp -> new EmployeeModels(emp)).collect(Collectors.toList()));
+				presentId = departmentModels.getId();
 
-			} else {
-				Department dept = departments.get(employeeService.getLastId() - 1);
+			}
+				else {
+				Department dept=employeeService.getDepartment(employeeService.getFirstId());
 				departmentModels = new DepartmentModels(dept);
-				model.addAttribute("departments", departmentModels);
-				model.addAttribute("employees", employeeService.getAllEmployeesByDepartmentId(departmentModels.getId())
-						.stream().map(emp -> new EmployeeModels(emp)).collect(Collectors.toList()));
+				presentId = departmentModels.getId();
 			}
 		} else if (submit.equals("First")) {
-			Department dept = departments.get(employeeService.getFirstId() - 1);
+			Department dept=employeeService.getDepartment(employeeService.getFirstId());
 			departmentModels = new DepartmentModels(dept);
-			model.addAttribute("departments", departmentModels);
-			model.addAttribute("employees", employeeService.getAllEmployeesByDepartmentId(departmentModels.getId())
-					.stream().map(emp -> new EmployeeModels(emp)).collect(Collectors.toList()));
+			presentId = departmentModels.getId();
 		}
-//		model.addAttribute("departments", departmentModels);
-//		model.addAttribute("employees", employeeService.getAllEmployeesByDepartmentId(currentId+1).stream()
-//				.map(emp -> new EmployeeModels(emp)).collect(Collectors.toList()));
+		model.addAttribute("departments", departmentModels);
+		model.addAttribute("employees", employeeService.getAllEmployeesByDepartmentId(presentId)
+				.stream().map(emp -> new EmployeeModels(emp)).collect(Collectors.toList()));
 		return "employees/list";
 	}
 

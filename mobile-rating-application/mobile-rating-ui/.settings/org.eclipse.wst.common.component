@@ -4,10 +4,10 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="mobile-ranking-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/mobile-ranking/mobile-ranking">
+        <dependent-module archiveName="pattern-checker-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/pattern-checker/pattern-checker">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="pattern-checker-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/pattern-checker/pattern-checker">
+        <dependent-module archiveName="mobile-ranking-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/mobile-ranking/mobile-ranking">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="mobile-rating-ui"/>

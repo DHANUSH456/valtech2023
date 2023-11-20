@@ -1,105 +1,160 @@
 package com.valtech.training.pattern.checker;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PatternChecker {
 
-    @SuppressWarnings("unchecked")
-	public static List<PhoneNumberScore> checkPatterns(List<String> phoneNumbers) {
-        List<PhoneNumberScore> fancyNumbers = new ArrayList<>();
-        @SuppressWarnings("rawtypes")
-		List<PhoneNumberScore> nonFancyNumbers = new ArrayList();
+	@SuppressWarnings("unchecked")
+	public static Map<String, Integer> checkPatterns(List<String> phoneNumbers) {
 
-        for (String phoneNumber : phoneNumbers) {
-            int score = 0;
+		Map<String, Integer> phoneNumberScores = new HashMap<String, Integer>();
 
-            if (isAllDigitsSame(phoneNumber)) {
-                score += 6;
-            }
+//        List<PhoneNumberScore> fancyNumbers = new ArrayList<>();
+//        @SuppressWarnings("rawtypes")
+//		List<PhoneNumberScore> nonFancyNumbers = new ArrayList();
 
-            if (isPalindrome(phoneNumber)) {
-                score += 5;
-            }
+		for (String phoneNumber : phoneNumbers) {
+			int score = 0;
 
-            if (hasRepeatedDigit(phoneNumber)) {
-                score += 4;
-            }
+			if (isAllDigitsSame(phoneNumber)) {
+				score += 6;
+			}
 
-            if (isAscendingOrder(phoneNumber)) {
-                score += 3;
-            }
+			if (isPalindrome(phoneNumber)) {
+				score += 5;
+			}
 
-            if (isDescendingOrder(phoneNumber)) {
-                score += 2;
-            }
+			if (hasRepeatedDigit(phoneNumber)) {
+				score += 4;
+			}
 
-            if (hasConsecutiveSequence(phoneNumber)) {
-                score += 1;
-            }
+			if (hasAscendingSequence(phoneNumber)) {
+				score += 3;
+			}
 
-            PhoneNumberScore phoneScore = new PhoneNumberScore(phoneNumber, score);
+			if (hasDescendingSequence(phoneNumber)) {
+				score += 2;
+			}
 
-            if (score > 0) {
-                fancyNumbers.add(phoneScore);
-            } else {
-                nonFancyNumbers.add(phoneScore);
+			if (hasConsecutiveSequence(phoneNumber)) {
+				score += 1;
+			}
+
+			phoneNumberScores.put(phoneNumber, score);
+
+//            PhoneNumberScore phoneScore = new PhoneNumberScore(phoneNumber, score);
+//
+//            if (score > 0) {
+//                fancyNumbers.add(phoneScore);
+//            } else {
+//                nonFancyNumbers.add(phoneScore);
+//            }
+		}
+//        List<PhoneNumberScore> combinedList = new ArrayList<>();
+//        combinedList.addAll(fancyNumbers);
+//        combinedList.addAll(nonFancyNumbers);
+
+		return phoneNumberScores;
+	}
+
+	private static boolean isAllDigitsSame(String phoneNumber) {
+		return phoneNumber.matches("^(.)\\1*$");
+	}
+
+	private static boolean isPalindrome(String phoneNumber) {
+		String reversed = new StringBuilder(phoneNumber).reverse().toString();
+		return phoneNumber.equals(reversed);
+	}
+
+	private static boolean hasRepeatedDigit(String phoneNumber) {
+		return phoneNumber.matches(".*(\\d)\\1.*");
+	}
+
+	public static boolean hasAscendingSequence(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.length() < 10) {
+            return false;
+        }
+
+        for (int i = 0; i <= phoneNumber.length() - 4; i++) {
+            if (isAscending(phoneNumber.substring(i, i + 4))) {
+                return true;
             }
         }
 
-        List<PhoneNumberScore> combinedList = new ArrayList<>();
-        combinedList.addAll(fancyNumbers);
-        combinedList.addAll(nonFancyNumbers);
-
-        return combinedList;
+        return false;
     }
 
-    private static boolean isAllDigitsSame(String phoneNumber) {
-        return phoneNumber.matches("^(.)\\1*$");
+    private static boolean isAscending(String substring) {
+        boolean isAscending = true;
+        for (int i = 0; i < substring.length() - 1; i++) {
+            if (substring.charAt(i + 1) <= substring.charAt(i)) {
+                isAscending = false;
+                break;
+            }
+        }
+        return isAscending;
     }
 
-    private static boolean isPalindrome(String phoneNumber) {
-        String reversed = new StringBuilder(phoneNumber).reverse().toString();
-        return phoneNumber.equals(reversed);
+	public static boolean hasDescendingSequence(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.length() < 4) {
+            return false;
+        }
+
+        for (int i = 0; i <= phoneNumber.length() - 4; i++) {
+            if (isDescending(phoneNumber.substring(i, i + 4))) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    private static boolean hasRepeatedDigit(String phoneNumber) {
-        return phoneNumber.matches(".*(\\d)\\1.*");
+    private static boolean isDescending(String substring) {
+        boolean isDescending = true;
+        for (int i = 0; i < substring.length() - 1; i++) {
+            if (substring.charAt(i + 1) >= substring.charAt(i)) {
+                isDescending = false;
+                break;
+            }
+        }
+        return isDescending;
     }
 
-    private static boolean isAscendingOrder(String phoneNumber) {
-        for (int i = 0; i < phoneNumber.length() - 1; i++) {
-            if (phoneNumber.charAt(i) > phoneNumber.charAt(i + 1)) {
+	public static boolean hasConsecutiveSequence(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.length() < 4) {
+            return false;
+        }
+
+        for (int i = 0; i <= phoneNumber.length() - 4; i++) {
+            if (isConsecutive(phoneNumber.substring(i, i + 4))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean isConsecutive(String substring) {
+        for (int i = 0; i < substring.length() - 1; i++) {
+            if (substring.charAt(i + 1) - substring.charAt(i) != 1) {
                 return false;
             }
         }
         return true;
     }
 
-    private static boolean isDescendingOrder(String phoneNumber) {
-        int length = phoneNumber.length();
-        
-        for (int i = 0; i < length - 1; i++) {
-            if (phoneNumber.charAt(i) < phoneNumber.charAt(i + 1)) {
-                return false;
-            }
-        }
-        
-        return true;
-    }
-//HashMap<String, Integer> hashMap=new HashMap<String, Integer>();
-    private static boolean hasConsecutiveSequence(String phoneNumber) {
-        return phoneNumber.matches(".*0123456789.*");
-    }
-
-    public static class PhoneNumberScore {
-        public String phoneNumber;
-        public int score;
-
-        PhoneNumberScore(String phoneNumber, int score) {
-            this.phoneNumber = phoneNumber;
-            this.score = score;
-        }
-    }
+	
+//	public static void main(String[] args) {
+//		List<String> phoneNumbers=Arrays.asList("9900135729","9916878237","9999999999");
+//		
+//		PatternChecker checker=new PatternChecker();
+//		Map<String,Integer> answer=checker.checkPatterns(phoneNumbers);
+//		System.out.println(answer);
+//		
+//		
+//	}
 }
