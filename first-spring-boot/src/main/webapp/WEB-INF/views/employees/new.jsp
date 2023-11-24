@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Create New Employee</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <form method="post" action="save">

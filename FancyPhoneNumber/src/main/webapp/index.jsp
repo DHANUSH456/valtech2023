@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Fancy Phone Number Ranker</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Fancy Phone Number Ranker</h1>

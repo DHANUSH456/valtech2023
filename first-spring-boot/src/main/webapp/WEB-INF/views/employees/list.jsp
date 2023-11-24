@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>List of All Employees</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 	<h1>List of Employees</h1>
